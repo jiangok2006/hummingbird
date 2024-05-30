@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   labels:
-    app.kubernetes.io/name: hummingbird-jiangok-ops
+    app.kubernetes.io/name: hummingbird-jiangok-staging
   # name cannot have '_'. https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#rfc-1035-label-names
   name: hummingbird-jiangok-staging
   namespace: hummingbird-jiangok-staging
