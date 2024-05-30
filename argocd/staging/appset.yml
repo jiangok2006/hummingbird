@@ -10,7 +10,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/jiangok/hummingbird_jiangok.git
+        repoURL: https://github.com/jiangok2006/hummingbird_jiangok-ops.git
         revision: main
         directories:
           - path: kustomize/overlay/staging/*/*
@@ -32,7 +32,7 @@ spec:
       project: hummingbird-jiangok
       source:
         path: "{{path}}"
-        repoURL: https://github.com/jiangok/hummingbird_jiangok.git
+        repoURL: https://github.com/jiangok2006/hummingbird_jiangok-ops.git
         targetRevision: main
       syncPolicy:
         automated:
