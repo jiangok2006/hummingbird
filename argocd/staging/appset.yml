@@ -1,0 +1,44 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  labels:
+    app.kubernetes.io/name: hummingbird-jiangok-ops
+  # name cannot have '_'. https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#rfc-1035-label-names
+  name: hummingbird-jiangok-staging
+  namespace: hummingbird-jiangok-staging
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/jiangok/hummingbird_jiangok.git
+        revision: main
+        directories:
+          - path: kustomize/overlay/staging/*/*
+  template:
+    metadata:
+      annotations:
+        argocd.argoproj.io/sync-wave: "0"
+      labels:
+        environment_type: "{{path[1]}}"
+        environment: "{{path[2]}}"
+        scale_unit: "{{path[3]}}"
+        cluster: "{{path[4]}}"
+        service: "hummingbird-jiangok"
+      name: "hummingbird-jiangok-{{path.basenameNormalized}}"
+    spec:
+      destination:
+        namespace: hummingbird-jiangok-staging
+        name: "{{path[4]}}"
+      project: hummingbird-jiangok
+      source:
+        path: "{{path}}"
+        repoURL: https://github.com/jiangok/hummingbird_jiangok.git
+        targetRevision: main
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - PruneLast=true

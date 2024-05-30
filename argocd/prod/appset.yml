@@ -3,17 +3,17 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   labels:
-    app.kubernetes.io/name: hummingbird-jiangok-ops
+    app.kubernetes.io/name: hummingbird-jiangok-prod
   # name cannot have '_'. https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#rfc-1035-label-names
-  name: hummingbird-jiangok-ops-latest
-  namespace: argocd
+  name: hummingbird-jiangok-prod
+  namespace: hummingbird-jiangok-prod
 spec:
   generators:
     - git:
-        repoURL: https://github.com/jiangok/hummingbird_jiangok-ops.git
+        repoURL: https://github.com/jiangok/hummingbird_jiangok.git
         revision: main
         directories:
-          - path: staging/*/*
+          - path: kustomize/overlay/prod/*/*
   template:
     metadata:
       annotations:
@@ -27,12 +27,12 @@ spec:
       name: "hummingbird-jiangok-{{path.basenameNormalized}}"
     spec:
       destination:
-        namespace: hummingbird-jiangok
+        namespace: hummingbird-jiangok-prod
         name: "{{path[4]}}"
       project: hummingbird-jiangok
       source:
         path: "{{path}}"
-        repoURL: https://github.com/jiangok/hummingbird_jiangok-ops.git
+        repoURL: https://github.com/jiangok/hummingbird_jiangok.git
         targetRevision: main
       syncPolicy:
         automated:

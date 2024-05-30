@@ -1,0 +1,23 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: PruneLast=true
+  name: hummingbird-jiangok
+  namespace: hummingbird-jiangok-prod
+spec:
+  # Deny all cluster-scoped resources from being created, except for Namespace
+  # This is needed by our ApplicationSets, which specify `syncOptions` with `CreateNamespace=true`
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  description: Project for the hummingbird_jiangok service
+  destinations:
+    - namespace: hummingbird-jiangok-prod
+      server: "*"
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  sourceRepos:
+    - "https://github.com/jiangok/hummingbird_jiangok.git"
