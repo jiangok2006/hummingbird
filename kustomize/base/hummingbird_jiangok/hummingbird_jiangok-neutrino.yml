@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neutrino
+  namespace: hummingbird-jiangok
+spec:
+  selector:
+    matchLabels:
+      app: neutrino
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: neutrino
+    spec:
+      hostNetwork: true
+      containers:
+        - name: neutrino
+          image: myregistry.com/hummingbird_jiangok:97b150ddd0fedb07b9112807139b5bbeea25e7f7
+          ports:
+            - containerPort: 3629
+          volumeMounts:
+            - name: ws
+              mountPath: /ws
+            - name: spool
+              mountPath: /spool
+          command: ["/dist/neutrino-linux-x64"]
+          args: ["-start", "/ws/neutrino.json"]
+          volumes:
+            - name: ws
+              hostPath:
+                path: /private/tmp
+            - name: spool
+              hostPath:
+                path: /private/tmp/spool
