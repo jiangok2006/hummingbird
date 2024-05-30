@@ -10,7 +10,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/highspot/hummingbird_jiangok-ops.git
+        repoURL: https://github.com/jiangok/hummingbird_jiangok-ops.git
         revision: main
         directories:
           - path: staging/*/*
