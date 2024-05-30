@@ -4,7 +4,7 @@ kind: AppProject
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: PruneLast=true
-  name: hummingbird-jiangok
+  name: hummingbird-jiangok-staging
   namespace: hummingbird-jiangok-staging
 spec:
   # Deny all cluster-scoped resources from being created, except for Namespace

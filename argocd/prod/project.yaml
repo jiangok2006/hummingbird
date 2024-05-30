@@ -4,7 +4,7 @@ kind: AppProject
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: PruneLast=true
-  name: hummingbird-jiangok
+  name: hummingbird-jiangok-prod
   namespace: hummingbird-jiangok-prod
 spec:
   # Deny all cluster-scoped resources from being created, except for Namespace
@@ -12,7 +12,7 @@ spec:
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
-  description: Project for the hummingbird_jiangok service
+  description: Project for the hummingbird_jiangok service prod
   destinations:
     - namespace: hummingbird-jiangok-prod
       server: "*"
