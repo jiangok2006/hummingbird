@@ -1,21 +1,25 @@
 ---
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/project-specification/
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: PruneLast=true
-  name: hummingbird-jiangok-staging
-  namespace: hummingbird-jiangok-staging
+  name: hummingbird-jiangok
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: hummingbird-jiangok
 spec:
+  description: Project for the hummingbird-jiangok service
   # Deny all cluster-scoped resources from being created, except for Namespace
   # This is needed by our ApplicationSets, which specify `syncOptions` with `CreateNamespace=true`
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
-  description: Project for the hummingbird_jiangok service staging
+  # Limit deployments to specified namespaces
   destinations:
-    - namespace: hummingbird-jiangok-staging
-      server: "*"
+    - namespace: hummingbird-jiangok
+      name: "in-cluster"
   namespaceResourceWhitelist:
     - group: "*"
       kind: "*"
