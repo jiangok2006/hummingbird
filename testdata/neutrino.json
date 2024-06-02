@@ -1,0 +1,10 @@
+{
+    "command": "all",
+    "drop": true,
+    "source": "mongodb://192.168.86.23:27017,192.168.86.23:27018,192.168.86.23:27019/?replicaSet=rs",
+    "target": "mongodb://192.168.86.23:27017,192.168.86.23:27018,192.168.86.23:27019/?replicaSet=rs",
+    "includes": [
+      { "namespace": "mongodbVSCodePlaygroundDB.sales", "to": "test.sales"}
+    ],
+    "license": "Apache-2.0"
+  }
